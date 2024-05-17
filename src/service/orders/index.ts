@@ -8,20 +8,20 @@ export interface postData{
   service_id: string
 }
 
-interface getData{
+export interface getData{
     page:number;
     limit:number;
 }
 
-interface UpdateData {
-  amount: number,
+export interface UpdateData {
+  amount: number |string,
   client_id: string,
   id: string,
   service_id: string,
   status: string
 }
 
-interface Orders{
+export interface Orders{
     ordersPost : (data:postData)=> any,
     ordersDelete : (id:string)=> any,
     ordersGet : (data:getData)=> any,

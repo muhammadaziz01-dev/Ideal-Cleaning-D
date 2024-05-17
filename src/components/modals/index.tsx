@@ -1,3 +1,4 @@
 import OrdersMadal from "./orders";
+import OrderModalEdit from "./order-edit"
 
-export{OrdersMadal}
+export{OrdersMadal , OrderModalEdit}

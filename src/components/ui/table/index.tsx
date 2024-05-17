@@ -14,6 +14,7 @@ import {
 
 import {Props} from "@globol-interface"
 import{ ModalServicesEdit} from '@ui';
+import {OrderModalEdit}from "@modals"
 // import { services } from "@services";
 
 
@@ -89,11 +90,12 @@ function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDat
                             </div>
                             :heder.value == "action2" ? <div className="flex items-center gap-2">
                             <button className=' text-gray-500' onClick={()=>deletIdData(body?.id)}><DeleteIcon/></button>
+                            <OrderModalEdit propsData = {body}/>
                             {/* <ModalServicesEdit data={body} /> */}
                             </div>
                             : heder.value == "id" ? <input type="checkbox" onChange={()=>{dataIdisChanged(body?.id)}} />
                             : heder.value == "t/r" ? <p>{index + 1}</p>
-                            : heder.value == "created_at" ? <p>{body?.created_at.slice(0, 10)}</p>
+                            : heder.value == "created_at" ? <p>{body?.created_at?.slice(0, 10)}</p>
                             // : body[heder.value].title ? (body[heder.value].title)
                             : (body[heder.value])
                           }</TableCell>
