@@ -87,8 +87,13 @@ function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDat
                                 <button className=' text-gray-500' onClick={()=>deletIdData(body?.id)}><DeleteIcon/></button>
                                 <ModalServicesEdit data={body} />
                             </div>
+                            :heder.value == "action2" ? <div className="flex items-center gap-2">
+                            <button className=' text-gray-500' onClick={()=>deletIdData(body?.id)}><DeleteIcon/></button>
+                            {/* <ModalServicesEdit data={body} /> */}
+                            </div>
                             : heder.value == "id" ? <input type="checkbox" onChange={()=>{dataIdisChanged(body?.id)}} />
                             : heder.value == "t/r" ? <p>{index + 1}</p>
+                            : heder.value == "created_at" ? <p>{body?.created_at.slice(0, 10)}</p>
                             // : body[heder.value].title ? (body[heder.value].title)
                             : (body[heder.value])
                           }</TableCell>

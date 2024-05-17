@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { Field, Formik ,Form, ErrorMessage } from 'formik';
 import { Button, TextField } from '@mui/material';
 
-import useServeceStore from "@store-services"
+import {useServeceStore} from "@store"
 import { postData } from '@services';
 import {getCookies} from "@cookie"
 

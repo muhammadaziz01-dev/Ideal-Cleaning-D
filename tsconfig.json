@@ -17,6 +17,7 @@
             "@cookie": ["./src/utils/cookis.ts"],
 
             "@components": ["./src/components"],
+            "@modals": ["./src/components/modals"],
             "@containers": ["./src/components/containers"],
             "@ui": ["./src/components/ui"],
             "@sections": ["./src/components/sections"],
@@ -31,8 +32,10 @@
             "@valideshin": ["./src/utils/valideshin.ts"],
             "@auth": ["./src/service/auth"],
             "@services": ["./src/service/services"],
+            "@orders": ["./src/service/orders"],
+            
 
-            "@store-services": ["./src/store/index.ts"],
+            "@store": ["./src/store/index.ts"],
 
 
 

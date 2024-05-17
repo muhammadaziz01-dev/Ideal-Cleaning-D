@@ -10,6 +10,7 @@ export default defineConfig({
       { find: '@layut', replacement: '/src/layout' },
       { find: '@ui', replacement: '/src/components/ui' },
       { find: '@components', replacement: '/src/components' },
+      { find: '@modals', replacement: '/src/components/modals' },
       { find: '@pages', replacement: '/src/pages' },
       { find: '@assets', replacement: '/src/assets' },
       { find: '@router', replacement: '/src/router' },
@@ -20,10 +21,12 @@ export default defineConfig({
 
       { find: '@auth', replacement: '/src/service/auth' },
       { find: '@services', replacement: '/src/service/services' },
+      { find: '@orders', replacement: '/src/service/orders' },
+
 
       {find: "@globol-interface" , replacement: '/src/types/globol-interface' },
 
-      {find: '@store-services', replacement: '/src/store/index.ts' },
+      {find: '@store', replacement: '/src/store/index.ts' },
 
 
       

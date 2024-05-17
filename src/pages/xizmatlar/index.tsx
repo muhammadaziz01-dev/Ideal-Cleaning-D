@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { Modal1, TestTable } from "@ui";
 import { services } from "@services";
-import useServeceStore from "@store-services"
+import{ useServeceStore }from "@store"
 import "./style.scss"
 
 
