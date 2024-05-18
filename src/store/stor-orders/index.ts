@@ -14,7 +14,7 @@ const useOrderStore = create <StoreOrders> ((set)=>({
         //    console.log(respons)
            if(respons.status === 200){
                set({data: respons?.data?.orders_list})
-               set({totleCuont:Math.ceil(respons?.data?.total / data?.limit) })
+               set({totleCuont:respons?.data?.total})
            }
            set({isLoader: false})
        }catch(error){
@@ -42,7 +42,7 @@ const useOrderStore = create <StoreOrders> ((set)=>({
         //    console.log(respons)
            if(respons.status === 200){
                set((state)=>({data: state.data.filter((el:any)=>el.id!== id)})) 
-               set((state)=>({totleCuont: state.totleCuont += 1}))
+               set((state)=>({totleCuont: state.totleCuont -= 1}))
                toast.success("Deleted successfully")
            }
         }catch(error:any){

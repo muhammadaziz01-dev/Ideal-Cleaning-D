@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { IconButton, InputBase, Paper ,Stack ,  Pagination} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate , useLocation} from "react-router-dom";
 // import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
@@ -15,21 +16,23 @@ import "./style.scss"
 
 const index = () => {
 
+    const navigate = useNavigate();
+    const location = useLocation();
     const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
-    const [countPage , setCountPage ] = useState(1)
-    const [countLimit ,] = useState(5)
-
+    const [params , setParams]= useState({ page:1,limit:5})
+    const totleCuont2 = Math.ceil(totleCuont / params?.limit) 
     // const allCount = Math.ceil(totleCuont / countLimit)
 
     data.forEach((item, index)=>{
-        item.index = countPage * countLimit - (countLimit-1)+ index;
+        item.index = params.page * params.limit - (params.limit-1)+ index;
     })
 
     // theder uchun kegan malumotga mos data 
     const theader = [
         {title: "" , value:"id"},
         {title: "T/R" , value:"index"},
-        {title: "Xizmat turi" , value:"service_id"},
+        // {title: "Ismi sharifi" , value:"client_name"},
+        {title: "Xizmat turi" , value:"service_name"},
         {title: "Xizmat narxi" , value:"price"},
         {title: "Miqdorint" , value:"amount"},
         {title: "Buyurtirildi" , value:"created_at"},
@@ -40,8 +43,19 @@ const index = () => {
 
     // Functions useEffects to get data <--------
     useEffect(()=>{
-        getOrderData({page:countPage, limit:countLimit})
-    },[countPage, getOrderData]);
+        getOrderData(params)
+    },[params, getOrderData]);
+
+    useEffect(()=>{
+        const params = new URLSearchParams(location.search);
+        const page = params.get("page");
+        const pageNuber = page ? parseInt(page): 1;
+        setParams(preParams=>({
+           ...preParams,
+            page:pageNuber
+        }));
+        
+    },[location.search]);
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     
 
@@ -72,9 +86,17 @@ const index = () => {
      //--- pagination tett mui <----
     //  const [page, setPage] = useState(1);
      const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setCountPage(value)
+        console.log(event);
+        setParams(preParams=>({
+            ...preParams,
+            page:value
+        }));
+        const searchPaams = new URLSearchParams(location.search);
+        searchPaams.set("page", `${value}`);
+        navigate (`?${searchPaams}`)
 
     //    setPage(value);
+
      };
 
      //=-=-=-=-=-=-=-=-=-=-=-=--=--=-=-
@@ -112,11 +134,11 @@ const index = () => {
       <button onClick={()=>{setCountPage(countPage + 1)}} disabled={countPage == allCount}  className="py-1 px-1 border rounded-lg hover:shadow-md active:shadow-sm  duration-200 cursor-pointer "><ArrowRightIcon/></button>
     </div> */}
 
-    {
-        totleCuont > 1 && <Stack spacing={2}>
-        <Pagination count={totleCuont} page={countPage} onChange={handleChange} />
+    
+     <Stack spacing={2}>
+        <Pagination count={totleCuont2} page={params.page} onChange={handleChange} />
       </Stack>
-    }
+    
     </>
 };
 
