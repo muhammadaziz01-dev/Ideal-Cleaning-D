@@ -11,6 +11,7 @@ import {
   Paper,
   Skeleton,
 } from "@mui/material";
+import { useSearchParams } from 'react-router-dom';
 
 import {Props} from "@globol-interface"
 import{ ModalServicesEdit} from '@ui';
@@ -20,6 +21,11 @@ import {OrderModalEdit}from "@modals"
 
 
 function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDataIds}:Props) {
+
+  const [searchPaams] = useSearchParams();
+  const page = Number(searchPaams.get("page")) || 1;
+  const limit = Number(searchPaams.get("limit")) || 8;
+ 
 
 
  // Deleted cheng datas <--------------------------------
@@ -94,9 +100,9 @@ function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDat
                             {/* <ModalServicesEdit data={body} /> */}
                             </div>
                             : heder.value == "id" ? <input type="checkbox" onChange={()=>{dataIdisChanged(body?.id)}} />
-                            : heder.value == "t/r" ? <p>{index + 1}</p>
+                            : heder.value == "t/r" ? <p>{page * limit -(limit - 1) +index }</p>
                             : heder.value == "created_at" ? <p>{body?.created_at?.slice(0, 10)}</p>
-                            // : body[heder.value].title ? (body[heder.value].title)
+                            : heder.value == "status" ? <p className={body?.status == "in_process" ? " text-red-500 " : body?.status == "done" ? " text-cyan-500 " : body?.status == "taken" ? " text-lime-500 " :""}>{body?.status}</p>
                             : (body[heder.value])
                           }</TableCell>
                         })

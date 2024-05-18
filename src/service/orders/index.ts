@@ -11,6 +11,7 @@ export interface postData{
 export interface getData{
     page:number;
     limit:number;
+    name?:string;
 }
 
 export interface UpdateData {
@@ -46,6 +47,6 @@ export interface StoreOrders {
 export const orders:Orders = {
     ordersPost: (data)=> http.post("/order" , data),
     ordersDelete: (id)=> http.delete(`/order?id=${id}`),
-    ordersGet: (data)=> http.get(`/order/all?page=${data.page}&limit=${data.limit}`),
+    ordersGet: (data)=> http.get(`/order/search?page=${data.page}&limit=${data.limit}`),//&name=${data.name}
     ordersUpdate: (data)=> http.put(`/order`, data)
 }

@@ -28,7 +28,7 @@ const useOrderStore = create <StoreOrders> ((set)=>({
            const respons = await orders.ordersPost(data)
         //    console.log(respons)
            if(respons.status === 201){
-               set((state)=>({data: state.data.length < 5 ?[...state.data, respons?.data] : [...state.data]})) 
+               set((state)=>({data: state.data.length < 8 ?[...state.data, respons?.data] : [...state.data]})) 
                set((state)=>({totleCuont: state.totleCuont += 1}))
                return respons?.status
            }

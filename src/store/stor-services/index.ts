@@ -6,6 +6,7 @@ import { services, StoreServices } from '@services';
 const useServeceStore = create <StoreServices> ((set)=>({
     isLoader: false,
     data: [],
+    totleCuont: 0,
     getData : async(data)=>{
         try{
            set({isLoader: true})
@@ -13,6 +14,7 @@ const useServeceStore = create <StoreServices> ((set)=>({
         //    console.log(respons)
            if(respons.status === 200){
                set({data: respons?.data?.services});
+               set({totleCuont: respons?.data?.total});
            }
            set({isLoader: false})
        }catch(error){
@@ -26,7 +28,8 @@ const useServeceStore = create <StoreServices> ((set)=>({
            const respons = await services.servicesPost(data)
         //    console.log(respons)
            if(respons.status === 201){
-               set((state)=>({data:[...state.data, respons?.data]})) 
+               set((state)=>({data: state.data.length > 8 ? [...state.data, respons?.data]: [...state.data]})) 
+               set((state)=>({totleCuont: state.totleCuont += 1}))
                return respons?.status
            }
         }catch(error){
@@ -39,6 +42,7 @@ const useServeceStore = create <StoreServices> ((set)=>({
         //    console.log(respons)
            if(respons.status === 200){
                set((state)=>({data: state.data.filter((el:any)=>el.id!== id)})) 
+               set((state)=>({totleCuont: state.totleCuont -= 1}))
                toast.success("Deleted successfully")
            }
         }catch(error:any){

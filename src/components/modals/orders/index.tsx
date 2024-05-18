@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-
+import { useMask } from "@react-input/mask";
 import * as Yup from "yup";
 import { Field, Formik, Form, ErrorMessage } from "formik";
 import { Button, MenuItem, Select, TextField } from "@mui/material";
@@ -26,7 +26,7 @@ const style = {
 export default function Modal1() {
   const { postOrderData } = useOrderStore();
   const { getData, data } = useServeceStore();
-
+  const inputRef = useMask({mask: "+998 (__) ___-__-__",replacement: { _: /\d/ },});
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -34,8 +34,8 @@ export default function Modal1() {
   /// my code ----------------------------------------------------
 
   const validationSchema = Yup.object().shape({
-    amount: Yup.string().required("Amount is required"),
-    client_phone_number: Yup.string().required("Phon number is required"),
+    amount: Yup.number().min(1, "less than one").max(100, "more than a hundred").required("Amount is required"),
+    client_phone_number: Yup.string().min(19, "Phone invalit ").required("Phon number is required"),
     client_full_name: Yup.string().required("Name is required"),
     service_id: Yup.string().required("Service ID is required"),
   });
@@ -48,9 +48,11 @@ export default function Modal1() {
   };
 
   const handelSubmit = async (value: postData) => {
-    console.log(value);
+    // console.log(value);
+    const phone = value.client_phone_number.replace(/\D/g, "");
+    const newFormData = { ...value, client_phone_number: `+${phone}` };
 
-    const status = await postOrderData(value);
+    const status = await postOrderData(newFormData);
 
     if (status === 201) {
       toast.success("Success fully");
@@ -112,6 +114,7 @@ export default function Modal1() {
                 label="Mijoz telafon ragami"
                 sx={{ "& input": { color: "#00000", fontSize: "20px" } }}
                 type="tel"
+                inputRef={inputRef}
                 name="client_phone_number"
                 className=" w-[100%]  mb-3 outline-none py-0"
                 helperText={

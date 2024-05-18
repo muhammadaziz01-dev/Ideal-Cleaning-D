@@ -1,36 +1,32 @@
 
 import { useEffect, useState } from "react";
-import { IconButton, InputBase, Paper ,Stack ,  Pagination} from "@mui/material";
+import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate , useLocation} from "react-router-dom";
+import {  useLocation} from "react-router-dom";
 // import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import {  TestTable } from "@ui";
 import { orders } from "@orders";
-import{ useOrderStore }from "@store"
-import {OrdersMadal}from "@modals"
-import "./style.scss"
+import{ useOrderStore }from "@store";
+import {OrdersMadal}from "@modals";
+import {GlobalPagination}from "@ui"
+import "./style.scss";
 
 
 const index = () => {
-
-    const navigate = useNavigate();
     const location = useLocation();
     const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
-    const [params , setParams]= useState({ page:1,limit:5})
+    // const [search , setSearch]= useState("")
+    const [params , setParams]= useState({ page:1,limit:8 })
     const totleCuont2 = Math.ceil(totleCuont / params?.limit) 
-    // const allCount = Math.ceil(totleCuont / countLimit)
 
-    data.forEach((item, index)=>{
-        item.index = params.page * params.limit - (params.limit-1)+ index;
-    })
-
+    
     // theder uchun kegan malumotga mos data 
     const theader = [
         {title: "" , value:"id"},
-        {title: "T/R" , value:"index"},
+        {title: "T/R" , value:"t/r"},
         // {title: "Ismi sharifi" , value:"client_name"},
         {title: "Xizmat turi" , value:"service_name"},
         {title: "Xizmat narxi" , value:"price"},
@@ -84,21 +80,12 @@ const index = () => {
  
 
      //--- pagination tett mui <----
-    //  const [page, setPage] = useState(1);
-     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        console.log(event);
+     const changePage = (value:number)=>{
         setParams(preParams=>({
             ...preParams,
             page:value
         }));
-        const searchPaams = new URLSearchParams(location.search);
-        searchPaams.set("page", `${value}`);
-        navigate (`?${searchPaams}`)
-
-    //    setPage(value);
-
-     };
-
+     }
      //=-=-=-=-=-=-=-=-=-=-=-=--=--=-=-
 
 
@@ -112,8 +99,9 @@ const index = () => {
             <InputBase
              sx={{ml:1 , flex :1}}
              placeholder="Qidiruv"
+            //  onChange={(e)=>setSearch(e.target.value)}
              inputProps={{"aria-label":"serch google maps"}}/>
-            <IconButton type="button" sx={{p: "10px"}} aria-label="search">
+            <IconButton type="button" sx={{p: "10px"}} aria-label="search" >
                 <SearchIcon/>
             </IconButton>
 
@@ -127,17 +115,8 @@ const index = () => {
         </div>
     </div>
     <TestTable heders={theader} body={data} skelatonLoader={isLoader} deletIdData={deleteOrderData}  setDataIds={setDataIds} dataIds={dataIds}  />
-
-    {/* <div className="flex items-center justify-end gap-3">
-      <button onClick={()=>{setCountPage(countPage - 1)}} disabled={countPage == 1} className="py-1 px-1 border rounded-lg hover:shadow-md active:shadow-sm  duration-200 cursor-pointer "><ArrowLeftIcon/></button>
-      <span className="text-[20px] text-center">{countPage}</span>
-      <button onClick={()=>{setCountPage(countPage + 1)}} disabled={countPage == allCount}  className="py-1 px-1 border rounded-lg hover:shadow-md active:shadow-sm  duration-200 cursor-pointer "><ArrowRightIcon/></button>
-    </div> */}
-
     
-     <Stack spacing={2}>
-        <Pagination count={totleCuont2} page={params.page} onChange={handleChange} />
-      </Stack>
+    <GlobalPagination totleCuont={totleCuont2} page={params.page} setParams={changePage} />
     
     </>
 };

@@ -27,6 +27,7 @@ interface Services{
 export interface StoreServices {
     isLoader:boolean;
     data:any[];
+    totleCuont: number;
     getData: (data:getData)=> Promise <any>;
     postData: (data:postData)=> Promise <any>;
     deleteData: (id:string)=> Promise <any>;
