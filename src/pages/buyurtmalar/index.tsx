@@ -1,8 +1,10 @@
 
 import { useEffect, useState } from "react";
-import { IconButton, InputBase, Paper } from "@mui/material";
+import { IconButton, InputBase, Paper ,Stack ,  Pagination} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer, toast } from "react-toastify";
+// import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+// import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import {  TestTable } from "@ui";
 import { orders } from "@orders";
@@ -13,13 +15,14 @@ import "./style.scss"
 
 const index = () => {
 
-    const {getOrderData , data , isLoader , deleteOrderData} = useOrderStore()
-    
-    
-    const [parms] =useState({ page:1, limit:10 })
+    const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
+    const [countPage , setCountPage ] = useState(1)
+    const [countLimit ,] = useState(5)
+
+    // const allCount = Math.ceil(totleCuont / countLimit)
 
     data.forEach((item, index)=>{
-        item.index = parms.page * parms.limit - (parms.limit-1)+ index;
+        item.index = countPage * countLimit - (countLimit-1)+ index;
     })
 
     // theder uchun kegan malumotga mos data 
@@ -37,8 +40,8 @@ const index = () => {
 
     // Functions useEffects to get data <--------
     useEffect(()=>{
-        getOrderData(parms)
-    },[parms, getOrderData]);
+        getOrderData({page:countPage, limit:countLimit})
+    },[countPage, getOrderData]);
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     
 
@@ -66,6 +69,16 @@ const index = () => {
      //=====================================================
  
 
+     //--- pagination tett mui <----
+    //  const [page, setPage] = useState(1);
+     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCountPage(value)
+
+    //    setPage(value);
+     };
+
+     //=-=-=-=-=-=-=-=-=-=-=-=--=--=-=-
+
 
     return <>
     <ToastContainer/>
@@ -92,6 +105,18 @@ const index = () => {
         </div>
     </div>
     <TestTable heders={theader} body={data} skelatonLoader={isLoader} deletIdData={deleteOrderData}  setDataIds={setDataIds} dataIds={dataIds}  />
+
+    {/* <div className="flex items-center justify-end gap-3">
+      <button onClick={()=>{setCountPage(countPage - 1)}} disabled={countPage == 1} className="py-1 px-1 border rounded-lg hover:shadow-md active:shadow-sm  duration-200 cursor-pointer "><ArrowLeftIcon/></button>
+      <span className="text-[20px] text-center">{countPage}</span>
+      <button onClick={()=>{setCountPage(countPage + 1)}} disabled={countPage == allCount}  className="py-1 px-1 border rounded-lg hover:shadow-md active:shadow-sm  duration-200 cursor-pointer "><ArrowRightIcon/></button>
+    </div> */}
+
+    {
+        totleCuont > 1 && <Stack spacing={2}>
+        <Pagination count={totleCuont} page={countPage} onChange={handleChange} />
+      </Stack>
+    }
     </>
 };
 

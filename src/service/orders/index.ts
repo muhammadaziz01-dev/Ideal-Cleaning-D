@@ -3,8 +3,8 @@ import { http } from "../config";
 // ----------------> Instance Orders <-------------------------------------
 export interface postData{
   amount: number|string,
-  client_phonenumber: string,
-  cliet_full_name: string,
+  client_phone_number: string,
+  client_full_name: string,
   service_id: string
 }
 

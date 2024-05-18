@@ -35,15 +35,15 @@ export default function Modal1() {
 
   const validationSchema = Yup.object().shape({
     amount: Yup.string().required("Amount is required"),
-    client_phonenumber: Yup.string().required("Phon number is required"),
-    cliet_full_name: Yup.string().required("Name is required"),
+    client_phone_number: Yup.string().required("Phon number is required"),
+    client_full_name: Yup.string().required("Name is required"),
     service_id: Yup.string().required("Service ID is required"),
   });
 
   const initialValues: postData = {
     amount: "",
-    client_phonenumber: "",
-    cliet_full_name: "",
+    client_phone_number: "",
+    client_full_name: "",
     service_id: "",
   };
 
@@ -97,11 +97,11 @@ export default function Modal1() {
                 label="Mijoz ismi"
                 sx={{ "& input": { color: "#00000", fontSize: "20px" } }}
                 type="text"
-                name="cliet_full_name"
+                name="client_full_name"
                 className=" w-[100%]  mb-3 outline-none py-0"
                 helperText={
                   <ErrorMessage
-                    name="cliet_full_name"
+                    name="client_full_name"
                     component="p"
                     className="mb-3 text-red-500 text-center"
                   />
@@ -112,11 +112,11 @@ export default function Modal1() {
                 label="Mijoz telafon ragami"
                 sx={{ "& input": { color: "#00000", fontSize: "20px" } }}
                 type="tel"
-                name="client_phonenumber"
+                name="client_phone_number"
                 className=" w-[100%]  mb-3 outline-none py-0"
                 helperText={
                   <ErrorMessage
-                    name="client_phonenumber"
+                    name="client_phone_number"
                     component="p"
                     className="mb-3 text-red-500 text-center"
                   />

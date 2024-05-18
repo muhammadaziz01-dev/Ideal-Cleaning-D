@@ -147,7 +147,7 @@ export default function Modal1({ propsData }: any) {
                   />
                 }
               >
-                {["in_process", "ready", "was taken away"].map((el, i) => (
+                {["in_process", "done", "taken"].map((el, i) => (
                   <MenuItem key={i} value={el}>
                     {el}
                   </MenuItem>
