@@ -23,6 +23,7 @@ export default defineConfig({
       { find: '@services', replacement: '/src/service/services' },
       { find: '@orders', replacement: '/src/service/orders' },
       { find: '@main', replacement: '/src/service/main' },
+      { find: '@clients', replacement: '/src/service/clients' },
 
 
       {find: "@globol-interface" , replacement: '/src/types/globol-interface' },

@@ -97,7 +97,10 @@ function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDat
                             :heder.value == "action2" ? <div className="flex items-center gap-2">
                             <button className=' text-gray-500' onClick={()=>deletIdData(body?.id)}><DeleteIcon/></button>
                             <OrderModalEdit propsData = {body}/>
-                            {/* <ModalServicesEdit data={body} /> */}
+                            </div>
+                            :heder.value == "action3" ? <div className="flex items-center gap-2">
+                            <button className=' text-gray-500' onClick={()=>deletIdData(body?.id)}><DeleteIcon/></button>
+                            {/* <OrderModalEdit propsData = {body}/> */}
                             </div>
                             : heder.value == "id" ? <input type="checkbox" onChange={()=>{dataIdisChanged(body?.id)}} />
                             : heder.value == "t/r" ? <p>{page * limit -(limit - 1) +index }</p>

@@ -7,11 +7,11 @@ import {  useLocation} from "react-router-dom";
 // import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-import {  TestTable } from "@ui";
+
 import { orders } from "@orders";
 import{ useOrderStore }from "@store";
 import {OrdersMadal}from "@modals";
-import {GlobalPagination}from "@ui"
+import {GlobalPagination , TestTable}from "@ui"
 import "./style.scss";
 
 
@@ -20,6 +20,7 @@ const index = () => {
     const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
     // const [search , setSearch]= useState("")
     const [params , setParams]= useState({ page:1,limit:8 })
+    
     const totleCuont2 = Math.ceil(totleCuont / params?.limit) 
 
     

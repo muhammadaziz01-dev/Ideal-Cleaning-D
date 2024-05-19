@@ -34,6 +34,8 @@
             "@services": ["./src/service/services"],
             "@orders": ["./src/service/orders"],
             "@main": ["./src/service/main"],
+            "@clients": ["./src/service/clients"],
+
             
 
             "@store": ["./src/store/index.ts"],
