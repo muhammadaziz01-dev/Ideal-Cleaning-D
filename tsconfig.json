@@ -33,6 +33,7 @@
             "@auth": ["./src/service/auth"],
             "@services": ["./src/service/services"],
             "@orders": ["./src/service/orders"],
+            "@main": ["./src/service/main"],
             
 
             "@store": ["./src/store/index.ts"],

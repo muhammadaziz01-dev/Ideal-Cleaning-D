@@ -22,6 +22,7 @@ export default defineConfig({
       { find: '@auth', replacement: '/src/service/auth' },
       { find: '@services', replacement: '/src/service/services' },
       { find: '@orders', replacement: '/src/service/orders' },
+      { find: '@main', replacement: '/src/service/main' },
 
 
       {find: "@globol-interface" , replacement: '/src/types/globol-interface' },

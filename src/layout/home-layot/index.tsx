@@ -135,6 +135,7 @@ export default function ResponsiveDrawer(props: Props) {
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
+       
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
@@ -168,6 +169,7 @@ export default function ResponsiveDrawer(props: Props) {
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        
       >
         <Toolbar />
         <Outlet/>
