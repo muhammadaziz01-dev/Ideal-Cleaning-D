@@ -48,7 +48,7 @@ const index = () => {
     const theader = [
         {title: "" , value:"id"},
         {title: "T/R" , value:"t/r"},
-        {title: "Mijoz isni" , value:"full_name"},
+        {title: "Mijoz ismi" , value:"full_name"},
         {title: "Mijoz raqami" , value:"phone_number"},
         {title: "Action" , value:"action3"}
     ]

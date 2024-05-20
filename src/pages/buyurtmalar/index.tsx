@@ -28,10 +28,10 @@ const index = () => {
     const theader = [
         {title: "" , value:"id"},
         {title: "T/R" , value:"t/r"},
-        {title: "Ismi sharifi" , value:"client_name"},
+        {title: "Mijozning ismi" , value:"client_name"},
         {title: "Xizmat turi" , value:"service_name"},
         {title: "Xizmat narxi" , value:"price"},
-        {title: "Miqdorint" , value:"amount"},
+        {title: "Miqdori" , value:"amount"},
         {title: "Buyurtirildi" , value:"created_at"},
         {title: "Xolati" , value:"status"},
         {title: "Action" , value:"action2"}
