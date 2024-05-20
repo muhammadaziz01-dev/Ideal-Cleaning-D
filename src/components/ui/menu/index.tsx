@@ -4,7 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
+// import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
@@ -61,7 +61,8 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            
+            <Avatar src="/broken-image.jpg" />
           </IconButton>
         </Tooltip>
       </Box>
@@ -100,20 +101,20 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        {/* <MenuItem onClick={()=> navigate("/main/sozlamalar")}> 
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={()=> navigate("/main/sozlamalar")}>
           <Avatar /> My account
         </MenuItem>
-        <Divider />
+        <Divider /> */}
         <MenuItem onClick={handleSignup}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={()=> navigate("/main/sozlamalar")}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
