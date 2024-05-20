@@ -63,6 +63,20 @@ const useOrderStore = create <StoreOrders> ((set)=>({
             console.log(error)
             toast.error("Error : " + error?.message)
         }
+    },
+    updateOrderStatus: async (data)=>{
+        try{
+        const respons = await orders.ordersStatusUpdate(data)
+        if(respons?.status ===200){
+            set((state)=>({data: state.data.map((el:any)=>el.id === data.order_id ? respons.data : el)}))
+            toast.success("Updated status successfully")
+            return respons?.status
+        }
+        
+        }catch(error:any){
+            console.log(error)
+            toast.error("Error : " + error?.message)
+        }
     }
 
 }))

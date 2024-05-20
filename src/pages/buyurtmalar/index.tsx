@@ -18,8 +18,8 @@ import "./style.scss";
 const index = () => {
     const location = useLocation();
     const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
-    // const [search , setSearch]= useState("")
-    const [params , setParams]= useState({ page:1,limit:8 })
+    const [search , setSearch]= useState("")
+    const [params , setParams]= useState({ page:1, limit:8, name: search })
     
     const totleCuont2 = Math.ceil(totleCuont / params?.limit) 
 
@@ -28,7 +28,7 @@ const index = () => {
     const theader = [
         {title: "" , value:"id"},
         {title: "T/R" , value:"t/r"},
-        // {title: "Ismi sharifi" , value:"client_name"},
+        {title: "Ismi sharifi" , value:"client_name"},
         {title: "Xizmat turi" , value:"service_name"},
         {title: "Xizmat narxi" , value:"price"},
         {title: "Miqdorint" , value:"amount"},
@@ -41,7 +41,7 @@ const index = () => {
     // Functions useEffects to get data <--------
     useEffect(()=>{
         getOrderData(params)
-    },[params, getOrderData]);
+    },[params, getOrderData , search]);
 
     useEffect(()=>{
         const params = new URLSearchParams(location.search);
@@ -100,7 +100,7 @@ const index = () => {
             <InputBase
              sx={{ml:1 , flex :1}}
              placeholder="Qidiruv"
-            //  onChange={(e)=>setSearch(e.target.value)}
+             onChange={(e)=>setSearch(e.target.value)}
              inputProps={{"aria-label":"serch google maps"}}/>
             <IconButton type="button" sx={{p: "10px"}} aria-label="search" >
                 <SearchIcon/>

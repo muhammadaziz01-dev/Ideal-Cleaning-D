@@ -15,7 +15,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import {Props} from "@globol-interface"
 import{ ModalServicesEdit} from '@ui';
-import {OrderModalEdit}from "@modals"
+import {OrderModalEdit , OrderStatus}from "@modals"
 // import { services } from "@services";
 
 
@@ -105,7 +105,10 @@ function index({ heders, body , skelatonLoader , deletIdData  , dataIds , setDat
                             : heder.value == "id" ? <input type="checkbox" onChange={()=>{dataIdisChanged(body?.id)}} />
                             : heder.value == "t/r" ? <p>{page * limit -(limit - 1) +index }</p>
                             : heder.value == "created_at" ? <p>{body?.created_at?.slice(0, 10)}</p>
-                            : heder.value == "status" ? <p className={body?.status == "in_process" ? " text-red-500 font-medium text-[16px] " : body?.status == "done" ? " text-cyan-500 font-medium text-[16px] " : body?.status == "taken" ? " text-lime-500 font-medium text-[16px] " :""}>{body?.status}</p>
+                            : heder.value == "status" ? <div className='flex items-center gap-2'>
+                               <p className={body?.status == "in_process" ? " text-red-500 font-medium text-[16px] " : body?.status == "done" ? " text-cyan-500 font-medium text-[16px] " : body?.status == "taken" ? " text-lime-500 font-medium text-[16px] " :""}>{body?.status}</p>
+                               <OrderStatus orderId={body?.id}/>
+                            </div>
                             : (body[heder.value])
                           }</TableCell>
                         })
