@@ -14,6 +14,7 @@ export default function PieActiveArc({data}:any) {
         },
       ]}
       height={300}
+      width={800}
     />
   </>;
 }
