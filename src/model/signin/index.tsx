@@ -52,6 +52,7 @@ function Index() {
         setCookies("refresh-token", response?.data?.refresh_token);
         setCookies("user-id", response?.data?.id);
         setCookies("email", response?.data?.email);
+        setCookies("start", response?.data?.created_at)
         toast.success(" Tizimga  muofaqiyatli kiritildi");
         setTimeout(() => {
           navigate("/main");
