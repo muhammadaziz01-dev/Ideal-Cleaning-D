@@ -28,7 +28,7 @@ const useServeceStore = create <StoreServices> ((set)=>({
            const respons = await services.servicesPost(data)
            console.log(respons)
            if(respons.status === 201){
-               set((state)=>({data: state.data.length > 8 ? [...state.data, respons.data ] : [...state.data]})) 
+               set((state)=>({data: state.data.length < 8 ? [...state.data, respons.data ] : [...state.data]})) 
                set((state)=>({totleCuont: state.totleCuont += 1}))
                return respons?.status
            }
