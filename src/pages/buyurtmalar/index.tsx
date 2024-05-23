@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IconButton, InputBase, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer, toast } from "react-toastify";
-import {  useLocation} from "react-router-dom";
+import {  useLocation , useNavigate} from "react-router-dom";
 // import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 // import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
@@ -11,13 +11,16 @@ import {  useLocation} from "react-router-dom";
 import { orders } from "@orders";
 import{ useOrderStore }from "@store";
 import {OrdersMadal}from "@modals";
-import {GlobalPagination , TestTable}from "@ui"
+import {GlobalPagination , TestTable , GlobalSearch}from "@ui"
 import "./style.scss";
 
 
 const index = () => {
+    const navigate = useNavigate()
     const location = useLocation();
     const {getOrderData , data , isLoader , deleteOrderData, totleCuont} = useOrderStore()
+    // console.log(data);
+    
     const [search , setSearch]= useState("")
     const [params , setParams]= useState({ page:1, limit:8, name: search })
     
@@ -41,16 +44,20 @@ const index = () => {
     // Functions useEffects to get data <--------
     useEffect(()=>{
         getOrderData(params)
-    },[params, getOrderData , search]);
+    },[params, search]);
 
     useEffect(()=>{
         const params = new URLSearchParams(location.search);
         const page = params.get("page");
+        const search = params.get("search");
+        const searchString = search ? search : ""
         const pageNuber = page ? parseInt(page): 1;
         setParams(preParams=>({
            ...preParams,
-            page:pageNuber
+            page:pageNuber,
+            name: searchString
         }));
+        setSearch(searchString)
         
     },[location.search]);
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -90,24 +97,41 @@ const index = () => {
      //=-=-=-=-=-=-=-=-=-=-=-=--=--=-=-
 
 
+     const hendelChange = (e:any)=>{
+        const search = e.target.value
+        setSearch(search)
+        setParams(preParams=>({
+           ...preParams,
+            name:search
+        }))
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("search", search)
+        navigate (`?${searchParams}`)
+
+     }
+
+
+
     return <>
     <ToastContainer/>
     <div className="flex items-center justify-between mb-5">
-        <div className="w-96">
+        {/* <div className="w-96">
            <Paper 
            component="form"
            sx={{p:"2px 4px", width:400 , alignItems: "center" , display: "flex"}}>
             <InputBase
              sx={{ml:1 , flex :1}}
              placeholder="Qidiruv"
-             onChange={(e)=>setSearch(e.target.value)}
+             value={search}
+             onChange={hendelChange}
              inputProps={{"aria-label":"serch google maps"}}/>
             <IconButton type="button" sx={{p: "10px"}} aria-label="search" >
                 <SearchIcon/>
             </IconButton>
 
            </Paper>
-        </div>
+        </div> */}
+        <GlobalSearch search={search}  hendelChange={hendelChange}/>
         <div className="flex items-center gap-2">
           {
             dataIds.length > 1 ? <button onClick={()=>deletDataIds(dataIds)} className="bg-red-400 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 active:bg-red-500 duration-200">O'chirish</button> : null

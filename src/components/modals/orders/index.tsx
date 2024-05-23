@@ -127,6 +127,7 @@ export default function Modal1() {
               />
               <Field
                 as={Select}
+                // select
                 label="Xizmat turi"
                 name="service_id"
                 className="w-full mb-3"

@@ -30,7 +30,7 @@ export interface updateStatus{
 export interface Orders{
     ordersPost : (data:postData)=> any,
     ordersDelete : (id:string)=> any,
-    ordersGet : (data:getData)=> any,
+    ordersGet : (props:getData)=> any,
     ordersUpdate : (data:UpdateData)=> any,
     ordersStatusUpdate:(data:updateStatus)=> any
 }
@@ -40,7 +40,7 @@ export interface StoreOrders {
     isLoader:boolean;
     data:any[];
     totleCuont: number;
-    getOrderData: (data:getData)=> Promise <any>;
+    getOrderData: (props:getData)=> Promise <any>;
     postOrderData: (data:postData)=> Promise <any>;
     deleteOrderData: (id:string)=> Promise <any>;
     updateOrderData: (data:UpdateData)=> Promise <any>;
@@ -54,7 +54,7 @@ export interface StoreOrders {
 export const orders:Orders = {
     ordersPost: (data)=> http.post("/order" , data),
     ordersDelete: (id)=> http.delete(`/order?id=${id}`),
-    ordersGet: (data)=> http.get(`/order/search?page=${data.page}&limit=${data.limit}&name=${data.name}`),//&name=${data.name}
+    ordersGet: (props)=> http.get(`/order/search?page=${props.page}&limit=${props.limit}&name=${props.name}`),//&name=${data.name}
     ordersUpdate: (data)=> http.put(`/order`, data),
     ordersStatusUpdate: (data) => http.put(`/order/status?order_id=${data?.order_id}&status=${data?.status}`)
 }

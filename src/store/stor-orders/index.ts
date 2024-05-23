@@ -7,11 +7,11 @@ const useOrderStore = create <StoreOrders> ((set)=>({
     isLoader: false,
     data: [],
     totleCuont: 0,
-    getOrderData : async(data)=>{
+    getOrderData : async(props)=>{
         try{
            set({isLoader: true})
-           const respons = await orders.ordersGet(data)
-        //    console.log(respons)
+           const respons = await orders.ordersGet(props)
+           console.log(respons)
            if(respons.status === 200){
                set({data: respons?.data?.orders_list})
                set({totleCuont:respons?.data?.total})
