@@ -1,7 +1,5 @@
 
 import { useEffect, useState } from "react";
-import { IconButton, InputBase, Paper } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer, toast } from "react-toastify";
 import {  useLocation , useNavigate} from "react-router-dom";
 // import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
@@ -49,9 +47,9 @@ const index = () => {
     useEffect(()=>{
         const params = new URLSearchParams(location.search);
         const page = params.get("page");
-        const search = params.get("search");
-        const searchString = search ? search : ""
         const pageNuber = page ? parseInt(page): 1;
+        const search = params.get("search");
+        const searchString = search ? search : "";
         setParams(preParams=>({
            ...preParams,
             page:pageNuber,

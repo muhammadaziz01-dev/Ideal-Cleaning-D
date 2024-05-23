@@ -127,11 +127,11 @@ export default function Modal1({ propsData }: any) {
                   />
                 }
               >
-                {data.map((el) => (
+                {data? data.map((el) => (
                   <MenuItem key={el.id} value={el.id}>
                     {el.name}
                   </MenuItem>
-                ))}
+                )) : ""}
               </Field>
 
               <Field

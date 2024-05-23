@@ -30,7 +30,7 @@ export interface StoreClients {
 
 // ----------------> Instance Services <----------------------------
 export const clients:Clients = {
-    clientsGet: (data)=> http.get(`/client/all?page=${data.page}&limit=${data.limit}`),//&name=${data.name}
+    clientsGet: (data)=> http.get(`/client/search?page=${data.page}&limit=${data.limit}&name=${data.name}`),//&name=${data.name}
     clientsDelete: (id)=> {
         const owner_id = getCookies("user-id") ;
        return http.delete(`/v1/client?client_id=${id}&owner_id=${owner_id}`)

@@ -10,6 +10,7 @@ export interface postData{
 interface getData{
     page:number;
     limit:number;
+    name?:string;
 }
 
 interface UpdateData extends postData{
@@ -41,6 +42,6 @@ export interface StoreServices {
 export const services:Services = {
     servicesPost: (data)=> http.post("/service" , data),
     servicesDelete: (id)=> http.delete(`/service?id=${id}`),
-    servicesGet: (data)=> http.get(`/service/all?page=${data.page}&limit=${data.limit}`),
+    servicesGet: (data)=> http.get(`/service/search?page=${data.page}&limit=${data.limit}&name=${data.name}`),
     servicesUpdate: (data)=> http.put(`/service`, data)
 }

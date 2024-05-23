@@ -1,19 +1,18 @@
 import { useEffect , useState } from "react";
-import { IconButton, InputBase, Paper } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search"
 import { ToastContainer , toast } from "react-toastify";
-import {  useLocation} from "react-router-dom";
+import {  useLocation, useNavigate} from "react-router-dom";
 
-import { TestTable , GlobalPagination} from "@ui"
+import { TestTable , GlobalPagination , GlobalSearch} from "@ui"
 import { useClientsStore} from "@store"
 import {clients} from "@clients"
 import "./style.scss"
 
 const index = () => {
- 
+    const navigate = useNavigate()
     const location = useLocation();
+    const [search , setSearch] = useState("")
     const { getClientsData , data , isLoader , deleteClientsData , totleCuont} = useClientsStore()
-    const [params , setParams] = useState({page:1 , limit:8} )
+    const [params , setParams] = useState({page:1 , limit:8 , name : search} )
     const totleCuont2 = Math.ceil(totleCuont / params?.limit) 
 
 
@@ -25,9 +24,12 @@ const index = () => {
         const params = new URLSearchParams(location.search);
         const page = params.get("page");
         const pageNuber = page ? parseInt(page): 1;
+        const search = params.get("search");
+        const searchString = search ? search : ""
         setParams(preParams=>({
            ...preParams,
-            page:pageNuber
+            page:pageNuber,
+            name:searchString
         }));
         
     },[location.search]);
@@ -54,6 +56,18 @@ const index = () => {
     ]
 
 
+    const hendelChange = (e:any)=>{
+        const search = e.target.value
+        setSearch(search)
+        setParams(preParams=>({
+           ...preParams,
+            name:search
+        }))
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("search", search)
+        navigate (`?${searchParams}`)
+    }
+
 
     // Delete data ids  --------------------------------
     const [dataIds , setDataIds] = useState([])
@@ -79,21 +93,7 @@ const index = () => {
     return <>
     <ToastContainer/>
     <div className="flex items-center justify-between mb-5">
-        <div className="w-96">
-           <Paper 
-           component="form"
-           sx={{p:"2px 4px", width:400 , alignItems: "center" , display: "flex"}}>
-            <InputBase
-             sx={{ml:1 , flex :1}}
-             placeholder="Qidiruv"
-            //  onChange={(e)=>setSearch(e.target.value)}
-             inputProps={{"aria-label":"serch google maps"}}/>
-            <IconButton type="button" sx={{p: "10px"}} aria-label="search" >
-                <SearchIcon/>
-            </IconButton>
-
-           </Paper>
-        </div>
+        < GlobalSearch search={search} hendelChange={hendelChange} />
         <div className="flex items-center gap-2">
           {
             dataIds.length > 1 ? <button onClick={()=>deletDataIds(dataIds)} className="bg-red-400 text-white font-semibold py-2 px-4 rounded-md hover:bg-red-700 active:bg-red-500 duration-200">O'chirish</button> : null
